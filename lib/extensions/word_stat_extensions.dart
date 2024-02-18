@@ -24,8 +24,17 @@ extension BubbleSorting on List<WordStat> {
   }
 
   void toStringLine() {
+    late String header;
+    if (this is List<PieWordStat>) {
+      header = (this as List<PieWordStat>).first.tableHeader();
+      print(header);
+      print('-' * (header.length + 22));
+    }
     for (final el in this) {
-      print(el);
+      print(el is PieWordStat ? el.toTable() : el);
+    }
+    if (this is List<PieWordStat>) {
+      print('-' * (header.length + 22));
     }
   }
 }

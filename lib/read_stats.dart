@@ -9,7 +9,7 @@ class WordStat {
   const WordStat(this.repetitions, this.word);
 
   @override
-  String toString() => 'WordStat(repetitions: $repetitions, word: $word)';
+  String toString() => 'WordStat(repetitions: $repetitions word: $word)';
 }
 
 class PieWordStat extends WordStat {
@@ -24,8 +24,24 @@ class PieWordStat extends WordStat {
   }
 
   @override
-  String toString() =>
-      'PieWordStat(word: $word, reps: $repetitions , percentage: $percentage , totalWords :$totalWords)';
+  String toString() {
+    const maxSpaces = 22;
+    final spaces = ' ' * (maxSpaces - word.length).abs();
+    return 'word: $word$spaces reps: $repetitions \t  percentage: $percentage \t totalWords :$totalWords';
+  }
+
+  String toTable() {
+    const maxSpaces = 22;
+    final spaces = ' ' * (maxSpaces - word.length).abs();
+    final fourSpaces = ' ' * 4;
+    return '$word$spaces $repetitions \t$fourSpaces $percentage \t\t $totalWords';
+  }
+
+  String tableHeader() {
+    const maxSpaces = 21;
+    final spaces = ' ' * (maxSpaces - 'word'.length);
+    return 'word$spaces repetitions\t percentage \t\t\t total words';
+  }
 }
 
 class ReadStats {
