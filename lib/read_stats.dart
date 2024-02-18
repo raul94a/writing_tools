@@ -71,7 +71,7 @@ class ReadStats {
 
   List<PieWordStat> getMostRepeatedPieStats(int amount) {
     final stats = getMostRepeated(amount);
-   
+
     return stats.map((e) => PieWordStat.fromWordStat(_totalWords, e)).toList();
   }
 
@@ -91,7 +91,7 @@ class ReadStats {
 
   List<PieWordStat> getLeastRepeatedPieStats(int amount) {
     final stats = getLeastRepeated(amount);
-    
+
     return stats.map((e) => PieWordStat.fromWordStat(totalWords, e)).toList();
   }
 
@@ -127,6 +127,37 @@ class ReadStats {
   List<PieWordStat> getPieStatsForList(List<String> words) {
     final wordStatList = getStatsForList(words);
     return wordStatList
+        .map((e) => PieWordStat.fromWordStat(totalWords, e))
+        .toList();
+  }
+
+  List<WordStat> filter(bool Function(WordStat element) compute) {
+    final registry = {..._wordCounterRegistry};
+    var wordStats = <WordStat>[];
+    for (final entry in registry.entries) {
+      final wordStat = WordStat(entry.value, entry.key);
+      final mustAdd = compute(wordStat);
+      if (mustAdd) {
+        wordStats.add(WordStat(entry.value, entry.key));
+      }
+    }
+    return wordStats;
+  }
+
+  List<PieWordStat> transformToPieWordChart(List<WordStat> wordStats) =>
+      wordStats.map((e) => PieWordStat.fromWordStat(totalWords, e)).toList();
+
+  List<PieWordStat> filterPieChart(bool Function(WordStat element) compute) {
+    final registry = {..._wordCounterRegistry};
+    var wordStats = <WordStat>[];
+    for (final entry in registry.entries) {
+      final wordStat = WordStat(entry.value, entry.key);
+      final mustAdd = compute(wordStat);
+      if (mustAdd) {
+        wordStats.add(WordStat(entry.value, entry.key));
+      }
+    }
+    return wordStats
         .map((e) => PieWordStat.fromWordStat(totalWords, e))
         .toList();
   }

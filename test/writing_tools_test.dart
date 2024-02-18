@@ -20,6 +20,23 @@ void main() {
       final pieChartData = readStats.getMostRepeatedPieStats(6);
       pieChartData.toStringLine();
     });
+    test('test_4.txt analysis filter() method', () async {
+      final path = 'test/test_4.txt';
+      final textAnalyzer = TextAnalyzer(path);
+      final readStats = await textAnalyzer.analyze();
+
+      var wordStats =
+          readStats.filter((element) => element.word.contains('no'));
+
+      expect(wordStats.length, 1);
+
+      var pieCharts = readStats.transformToPieWordChart(wordStats);
+      print(pieCharts);
+      expect(pieCharts.first.percentage, greaterThan(0.14));
+
+      wordStats = readStats.filter((element) => element.word.contains('la'));
+      expect(wordStats.length, 2);
+    });
 
     test('use test.txt file with know words', () async {
       final path = 'test/test.txt';
