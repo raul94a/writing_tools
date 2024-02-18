@@ -4,7 +4,23 @@ import 'package:writing_tools/read_stats.dart';
 import 'package:writing_tools/text_analyzer.dart';
 
 void main() {
-  group('Text Stats tests', () {
+  group('Text Stats: ', () {
+    test('test_4.txt analysis', () async {
+      final path = 'test/test_4.txt';
+      final textAnalyzer = TextAnalyzer(path);
+      final readStats = await textAnalyzer.analyze();
+      final totalWords = readStats.totalWords;
+      final wordMap = readStats.registry;
+      expect(totalWords, 42);
+      expect(wordMap['texto'], 6);
+      final mostRepeated = readStats.getMostRepeated(2);
+      expect(mostRepeated.length, 2);
+      expect(mostRepeated.first.word, 'texto');
+      expect(mostRepeated.last.word, 'prueba');
+      final pieChartData = readStats.getMostRepeatedPieStats(6);
+      pieChartData.toStringLine();
+    });
+
     test('use test.txt file with know words', () async {
       final path = 'test/test.txt';
       final textAnalyzer = TextAnalyzer(path);
