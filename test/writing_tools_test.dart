@@ -1,4 +1,5 @@
 import 'package:test/test.dart';
+import 'package:writing_tools/extensions/word_stat_extensions.dart';
 import 'package:writing_tools/read_stats.dart';
 import 'package:writing_tools/text_analyzer.dart';
 
@@ -49,7 +50,8 @@ void main() {
       final textAnalyzer = TextAnalyzer(path);
 
       textAnalyzer.excludeMonosilables = false;
-      textAnalyzer.minCharactersNeededToRegister = 20;
+
+      textAnalyzer.minCharactersNeededToRegister = 1;
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       print(totalWords);
@@ -62,7 +64,10 @@ void main() {
       print(readStats.getLeastRepeated(20));
 
       final pieStat = readStats.getPieStatsForWord('kaladin');
-      print(repeated.map((e) => PieWordStat.fromWordStat(totalWords, e)).toList());
+      repeated
+          .map((e) => PieWordStat.fromWordStat(totalWords, e))
+          .toList()
+          .toStringLine();
 
       expect(pieStat.percentage,
           equals(pieStat.repetitions / readStats.totalWords));
@@ -93,6 +98,54 @@ void main() {
 
       print(totalWords);
       print(readStats.registry.entries.take(20).toList());
+    });
+
+    test('analyze Hero of Ages', () async {
+      var path = 'test/test_4.txt';
+      path = 'docs/hero_ages_EN.txt';
+      final textAnalyzer = TextAnalyzer(path);
+
+      textAnalyzer.excludeMonosilables = false;
+
+      textAnalyzer.minCharactersNeededToRegister = 1;
+      final readStats = await textAnalyzer.analyze();
+      final totalWords = readStats.totalWords;
+      print(totalWords);
+
+      final wordStat = readStats.getStatsForWord('alomancy');
+      print(wordStat);
+
+      final repeated = readStats.getMostRepeated(20);
+      print(repeated);
+      print('\n');
+      readStats.getLeastRepeated(20).toStringLine();
+
+      final pieStat = readStats.getPieStatsForWord('vin');
+      repeated
+          .map((e) => PieWordStat.fromWordStat(totalWords, e))
+          .toList()
+          .toStringLine();
+
+      expect(pieStat.percentage,
+          equals(pieStat.repetitions / readStats.totalWords));
+      print(pieStat);
+
+      final pieStats = readStats.getPieStatsForList([
+        'vin',
+        'kelsier',
+        'sazed',
+        'elend',
+        'ruin',
+        'preservation',
+        'harmony',
+        'steel',
+        'hemalurgy'
+      ]);
+      print('\n');
+      pieStats.toStringLine();
+      final totalPerc = pieStats.fold<num>(
+          0.0, (previousValue, element) => previousValue + element.percentage);
+      print(totalPerc);
     });
   });
 }

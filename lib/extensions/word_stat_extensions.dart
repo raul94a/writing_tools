@@ -22,4 +22,10 @@ extension BubbleSorting on List<WordStat> {
     }
     return this;
   }
+
+  void toStringLine() {
+    for (final el in this) {
+      print(el);
+    }
+  }
 }
