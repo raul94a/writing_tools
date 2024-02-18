@@ -91,11 +91,8 @@ class ReadStats {
 
   List<PieWordStat> getLeastRepeatedPieStats(int amount) {
     final stats = getLeastRepeated(amount);
-    int total = 0;
-    for (final stat in stats) {
-      total += stat.repetitions;
-    }
-    return stats.map((e) => PieWordStat.fromWordStat(total, e)).toList();
+    
+    return stats.map((e) => PieWordStat.fromWordStat(totalWords, e)).toList();
   }
 
   WordStat getStatsForWord(String word) {
