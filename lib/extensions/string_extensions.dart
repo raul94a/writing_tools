@@ -8,6 +8,9 @@ extension CleanString on String {
   String clean() {
     return replaceAll(POINT, IDLE)
         .replaceAll(SLASH, IDLE)
+        .replaceAll(DOUBLE_POINT, IDLE)
+        .replaceAll(OPEN_PARENTHESIS, IDLE)
+        .replaceAll(CLOSING_PARENTHESIS, IDLE)
         .replaceAll(COMMA, IDLE)
         .replaceAll(POINT_COMMA, IDLE)
         .replaceAll(OPENING, CLOSING)

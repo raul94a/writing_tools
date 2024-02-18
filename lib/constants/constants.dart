@@ -16,3 +16,6 @@ const OPEN_DIALOGS = "”";
 const CLOSING_DIALOGS = '“';
 const ASKING_MARK_OPEN = "¿";
 const ASKING_MARK_CLOSING = "?";
+const DOUBLE_POINT = ":";
+const OPEN_PARENTHESIS = "(";
+const CLOSING_PARENTHESIS = ")";

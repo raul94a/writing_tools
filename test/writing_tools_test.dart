@@ -106,6 +106,14 @@ void main() {
           equals(pieStat.repetitions / readStats.totalWords));
       print(pieStat);
 
+      print('\n');
+
+      final sprenWords =
+          readStats.filter((element) => element.word.contains('spren'));
+      sprenWords.bubbleSort().toStringLine();
+      print('\n');
+      readStats.transformToPieWordChart(sprenWords).toStringLine();
+
       final pieStats = readStats.getPieStatsForList([
         'kaladin',
         'dalinar',
