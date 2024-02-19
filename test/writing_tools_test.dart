@@ -24,17 +24,23 @@ void main() {
     });
 
     test('docx test', () async {
-      final path = 'docs/lpda.docx';
+      final path = 'docs/lpda.txt';
       final textAnalyzer = TextAnalyzer(path);
+      textAnalyzer.minCharactersNeededToRegister = 1;
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       final wordMap = readStats.registry;
+
+
     
 
-      final mostRepeated = readStats.getMostRepeated(2);
+      final mostRepeated = readStats.getMostRepeated(1);
       mostRepeated.toStringLine();
-      final pieChartData = readStats.getMostRepeatedPieStats(6);
+      final pieChartData = readStats.getMostRepeatedPieStats(100);
+
+
       pieChartData.toStringLine();
+
     });
     test('test_4.txt analysis filter() method', () async {
       final path = 'test/test_4.txt';

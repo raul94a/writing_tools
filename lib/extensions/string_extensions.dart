@@ -7,7 +7,7 @@ extension MonoSilabusCheck on String {
 extension CleanString on String {
   String clean() {
     return replaceAll(POINT, IDLE)
-        .replaceAll(SLASH, IDLE)
+        .replaceAll(SLASH, SPACE)
         .replaceAll(DOUBLE_POINT, IDLE)
         .replaceAll(OPEN_PARENTHESIS, IDLE)
         .replaceAll(CLOSING_PARENTHESIS, IDLE)
