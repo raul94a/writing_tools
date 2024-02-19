@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:docx_to_text/docx_to_text.dart';
 import 'package:writing_tools/constants/constants.dart';
 import 'package:writing_tools/extensions/string_extensions.dart';
 import 'package:writing_tools/read_stats.dart';
@@ -26,12 +28,13 @@ class TextAnalyzer {
     }
     return false;
   }
+
   Future<ReadStats> analyze() async {
     assert(minCharactersNeededToRegister > 0, '''
       minCharactersNeededToRegister must be greater than 0
     ''');
     final readStats = ReadStats();
-    final file = File(path);
+    var file = File(path);
 
     int totalWords = 0;
 
@@ -39,10 +42,14 @@ class TextAnalyzer {
     readStats.setTextLength(length);
 
     final stream = file.openRead();
-    await for (final data in stream) {
+    await for (var data in stream) {
       final encoding = Utf8Decoder(allowMalformed: true);
       final decodedBytes = encoding.convert(data);
       String string = decodedBytes;
+      if (path.contains('.docx')) {
+        print('DOCS');
+        string = docxToText(Uint8List.fromList(data),handleNumbering: true);
+      }
       //process
       string = string.clean();
       final split = string.split(SPACE);
@@ -61,8 +68,3 @@ class TextAnalyzer {
     return readStats;
   }
 }
-
-
-
-
-

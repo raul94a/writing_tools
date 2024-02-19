@@ -10,6 +10,19 @@ class WordStat {
 
   @override
   String toString() => 'WordStat(repetitions: $repetitions word: $word)';
+
+  String toTable() {
+    const maxSpaces = 22;
+    final spaces = ' ' * (maxSpaces - word.length).abs();
+    final fourSpaces = ' ' * 4;
+    return '$word$spaces $repetitions \t$fourSpaces';
+  }
+
+  String tableHeader() {
+    const maxSpaces = 21;
+    final spaces = ' ' * (maxSpaces - 'word'.length);
+    return 'word$spaces repetitions';
+  }
 }
 
 class PieWordStat extends WordStat {
@@ -25,11 +38,10 @@ class PieWordStat extends WordStat {
 
   @override
   String toString() {
-    const maxSpaces = 22;
-    final spaces = ' ' * (maxSpaces - word.length).abs();
-    return 'word: $word$spaces reps: $repetitions \t  percentage: $percentage \t totalWords :$totalWords';
+    return 'word: $word,  reps: $repetitions, percentage: $percentage, totalWords :$totalWords';
   }
 
+  @override
   String toTable() {
     const maxSpaces = 22;
     final spaces = ' ' * (maxSpaces - word.length).abs();
@@ -37,6 +49,7 @@ class PieWordStat extends WordStat {
     return '$word$spaces $repetitions \t$fourSpaces $percentage \t\t $totalWords';
   }
 
+  @override
   String tableHeader() {
     const maxSpaces = 21;
     final spaces = ' ' * (maxSpaces - 'word'.length);

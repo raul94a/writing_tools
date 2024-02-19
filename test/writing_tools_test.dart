@@ -5,6 +5,8 @@ import 'package:writing_tools/text_analyzer.dart';
 
 void main() {
   group('Text Stats: ', () {
+    tearDown(() => print('\n'));
+    setUp(() => print('===== STARTING TEST ===='));
     test('test_4.txt analysis', () async {
       final path = 'test/test_4.txt';
       final textAnalyzer = TextAnalyzer(path);
@@ -20,6 +22,20 @@ void main() {
       final pieChartData = readStats.getMostRepeatedPieStats(6);
       pieChartData.toStringLine();
     });
+
+    test('docx test', () async {
+      final path = 'docs/lpda.docx';
+      final textAnalyzer = TextAnalyzer(path);
+      final readStats = await textAnalyzer.analyze();
+      final totalWords = readStats.totalWords;
+      final wordMap = readStats.registry;
+    
+
+      final mostRepeated = readStats.getMostRepeated(2);
+      mostRepeated.toStringLine();
+      final pieChartData = readStats.getMostRepeatedPieStats(6);
+      pieChartData.toStringLine();
+    });
     test('test_4.txt analysis filter() method', () async {
       final path = 'test/test_4.txt';
       final textAnalyzer = TextAnalyzer(path);
@@ -31,7 +47,7 @@ void main() {
       expect(wordStats.length, 1);
 
       var pieCharts = readStats.transformToPieWordChart(wordStats);
-      print(pieCharts);
+      pieCharts.toStringLine();
       expect(pieCharts.first.percentage, greaterThan(0.14));
 
       wordStats = readStats.filter((element) => element.word.contains('la'));
@@ -57,7 +73,7 @@ void main() {
       final totalWords = readStats.totalWords;
       final wordMap = readStats.registry;
       print(totalWords);
-      print(readStats.getMostRepeated(5));
+      readStats.getMostRepeated(5).toStringLine();
       expect(wordMap['lorem'], 4);
       expect(wordMap['ipsum'], 4);
       expect(wordMap['it'], 3);
@@ -72,7 +88,7 @@ void main() {
 
       print(totalWords);
       print(readStats.textLength);
-      print(readStats.getMostRepeated(5));
+      readStats.getMostRepeated(5).toStringLine();
       print(readStats.registry['aliquam']);
       expect(totalWords, 500);
     });
@@ -93,8 +109,8 @@ void main() {
       print(wordStat);
 
       final repeated = readStats.getMostRepeated(20);
-      print(repeated);
-      print(readStats.getLeastRepeated(20));
+      repeated.toStringLine();
+      readStats.getLeastRepeated(20).toStringLine();
 
       final pieStat = readStats.getPieStatsForWord('kaladin');
       repeated
@@ -125,7 +141,7 @@ void main() {
         'luz',
         'tormentosa'
       ]);
-      print(pieStats);
+      pieStats.toStringLine();
       final totalPerc = pieStats.fold<num>(
           0.0, (previousValue, element) => previousValue + element.percentage);
       print(totalPerc);
@@ -157,7 +173,7 @@ void main() {
       print(wordStat);
 
       final repeated = readStats.getMostRepeated(20);
-      print(repeated);
+      repeated.toStringLine();
       print('\n');
       readStats.getLeastRepeated(20).toStringLine();
 

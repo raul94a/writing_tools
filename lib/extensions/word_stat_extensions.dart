@@ -25,15 +25,15 @@ extension BubbleSorting on List<WordStat> {
 
   void toStringLine() {
     late String header;
-    if (this is List<PieWordStat>) {
-      header = (this as List<PieWordStat>).first.tableHeader();
+    if (isNotEmpty) {
+      header = first.tableHeader();
       print(header);
       print('-' * (header.length + 22));
     }
     for (final el in this) {
-      print(el is PieWordStat ? el.toTable() : el);
+      print(el.toTable());
     }
-    if (this is List<PieWordStat>) {
+    if (isNotEmpty) {
       print('-' * (header.length + 22));
     }
   }
