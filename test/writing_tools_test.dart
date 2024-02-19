@@ -1,15 +1,20 @@
 import 'package:test/test.dart';
+import 'package:writing_tools/analysis_options.dart';
 import 'package:writing_tools/extensions/word_stat_extensions.dart';
 import 'package:writing_tools/read_stats.dart';
 import 'package:writing_tools/text_analyzer.dart';
 
 void main() {
+  final options = AnalysisOptions(
+      caseSensitive: false,
+      excludeMonosilabes: false,
+      minCharactersNeededToRegister: 1);
   group('Text Stats: ', () {
     tearDown(() => print('\n'));
     setUp(() => print('===== STARTING TEST ===='));
     test('test_4.txt analysis', () async {
       final path = 'test/test_4.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       final wordMap = readStats.registry;
@@ -24,27 +29,39 @@ void main() {
     });
 
     test('docx test', () async {
-      final path = 'docs/lpda.txt';
-      final textAnalyzer = TextAnalyzer(path);
-      textAnalyzer.minCharactersNeededToRegister = 1;
+      final path = './docs/lpda.docx';
+
+      final textAnalyzer = TextAnalyzer(path, options);
+
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       final wordMap = readStats.registry;
-
-
-    
 
       final mostRepeated = readStats.getMostRepeated(1);
       mostRepeated.toStringLine();
       final pieChartData = readStats.getMostRepeatedPieStats(100);
 
+      pieChartData.toStringLine();
+    });
+
+     test('pdf test', () async {
+      final path = './docs/suen.txt';
+
+      final textAnalyzer = TextAnalyzer(path, options);
+
+      final readStats = await textAnalyzer.analyze();
+      final totalWords = readStats.totalWords;
+      final wordMap = readStats.registry;
+
+      final mostRepeated = readStats.getMostRepeated(1);
+      mostRepeated.toStringLine();
+      final pieChartData = readStats.getMostRepeatedPieStats(100);
 
       pieChartData.toStringLine();
-
     });
     test('test_4.txt analysis filter() method', () async {
       final path = 'test/test_4.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
       final readStats = await textAnalyzer.analyze();
 
       var wordStats =
@@ -62,7 +79,7 @@ void main() {
 
     test('use test.txt file with know words', () async {
       final path = 'test/test.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       final wordMap = readStats.registry;
@@ -74,7 +91,7 @@ void main() {
     });
     test('use longer text file with known words', () async {
       final path = 'test/test_2.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       final wordMap = readStats.registry;
@@ -88,7 +105,7 @@ void main() {
     });
     test('use longer text file with known words', () async {
       final path = 'test/test_3.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
 
@@ -102,11 +119,8 @@ void main() {
     test('analyze El Camino de los Reyes', () async {
       var path = 'test/test_4.txt';
       path = 'docs/el_camino_reyes_ESP.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
 
-      textAnalyzer.excludeMonosilables = false;
-
-      textAnalyzer.minCharactersNeededToRegister = 1;
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       print(totalWords);
@@ -155,7 +169,7 @@ void main() {
 
     test('analyze LPDA', () async {
       final path = 'test/test_5.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
 
@@ -166,11 +180,8 @@ void main() {
     test('analyze Hero of Ages', () async {
       var path = 'test/test_4.txt';
       path = 'docs/hero_ages_EN.txt';
-      final textAnalyzer = TextAnalyzer(path);
+      final textAnalyzer = TextAnalyzer(path, options);
 
-      textAnalyzer.excludeMonosilables = false;
-
-      textAnalyzer.minCharactersNeededToRegister = 1;
       final readStats = await textAnalyzer.analyze();
       final totalWords = readStats.totalWords;
       print(totalWords);

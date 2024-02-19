@@ -18,7 +18,7 @@ packages:
     source: hosted
     version: "6.4.1"
   archive:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: archive
       sha256: "22600aa1e926be775fa5fe7e6894e7fb3df9efda8891c73f70fb3262399a432d"
@@ -81,14 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  docx_to_text:
-    dependency: "direct main"
+  ffi:
+    dependency: transitive
     description:
-      name: docx_to_text
-      sha256: d94e199bf9f36321cbd7701f82ce4874d7b94fd362a007fd4923ba9d57794664
+      name: ffi
+      sha256: "13a6ccf6a459a125b3fcdb6ec73bd5ff90822e071207c663bfd1f70062d51d18"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.2.1"
   file:
     dependency: transitive
     description:
@@ -202,13 +202,21 @@ packages:
     source: hosted
     version: "2.1.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       sha256: "087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af"
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
+  pdf_text_extraction:
+    dependency: "direct main"
+    description:
+      name: pdf_text_extraction
+      sha256: "1d4afbaa8902f1f993b301dd7bb9248f4d76ff3fa9fbd694afa6769c672c72db"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   petitparser:
     dependency: transitive
     description:
@@ -402,7 +410,7 @@ packages:
     source: hosted
     version: "1.2.1"
   xml:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: xml
       sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226

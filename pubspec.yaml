@@ -8,8 +8,10 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  docx_to_text: ^1.0.1
-  # path: ^1.8.0
+  archive: ^3.4.10
+  xml: ^6.5.0
+  path: ^1.8.0
+  pdf_text_extraction: ^1.2.0
 
 dev_dependencies:
   lints: ^2.1.0
