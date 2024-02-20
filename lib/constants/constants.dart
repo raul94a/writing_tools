@@ -19,3 +19,4 @@ const ASKING_MARK_CLOSING = "?";
 const DOUBLE_POINT = ":";
 const OPEN_PARENTHESIS = "(";
 const CLOSING_PARENTHESIS = ")";
+const SPANISH_COMMA = '"';
